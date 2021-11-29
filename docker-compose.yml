@@ -1,18 +1,18 @@
-version: '2'
+version: '3'
 services:
 
     mongo:
-        image: mongo:3.4
+        image: mongo:latest
         restart: unless-stopped
         volumes:
             - "${DATA_LOCATION}/mongo:/data/db"
 
     redis:
-        image: redis:4-alpine
+        image: redis:latest
         restart: unless-stopped
 
     xapi:
-        image: learninglocker/xapi-service:2.1.10
+        image: learninglocker/xapi-service:${XAPI_SERVICE_VERSION}
         restart: unless-stopped
         environment:
             - MONGO_URL=mongodb://mongo:27017/learninglocker_v2
@@ -25,7 +25,7 @@ services:
             - "${DATA_LOCATION}/xapi-storage:/usr/src/app/storage"
 
     api:
-        image: up2university/learninglocker2-app:${DOCKER_TAG}
+        image: learninglocker-app:${DOCKER_TAG}
         environment:
             - DOMAIN_NAME
             - APP_SECRET
@@ -43,7 +43,7 @@ services:
             - "${DATA_LOCATION}/app-storage:/opt/learninglocker/storage"
 
     ui:
-        image: up2university/learninglocker2-app:${DOCKER_TAG}
+        image: learninglocker-app:${DOCKER_TAG}
         environment:
             - DOMAIN_NAME
             - APP_SECRET
@@ -63,7 +63,7 @@ services:
             - "${DATA_LOCATION}/ui-logs:/opt/learninglocker/logs"
 
     worker:
-        image: up2university/learninglocker2-app:${DOCKER_TAG}
+        image: learninglocker-app:${DOCKER_TAG}
         environment:
             - DOMAIN_NAME
             - APP_SECRET
@@ -81,7 +81,7 @@ services:
             - "${DATA_LOCATION}/app-storage:/opt/learninglocker/storage"
 
     nginx:
-        image: up2university/learninglocker2-nginx:${DOCKER_TAG}
+        image: learninglocker-nginx:${DOCKER_TAG}
         environment:
             - DOMAIN_NAME
         restart: unless-stopped
@@ -90,5 +90,4 @@ services:
             - xapi
         ports:
             - "443:443"
-            - "80:80"
-
+            - "8080:80"

@@ -1,5 +1,7 @@
-FROM debian:9
+# learninglocker needs node 18.04
+FROM ubuntu:18.04
 
+# learninglocker needs node 10.x
 RUN apt-get update \
     && apt-get install -y \
         wget \
@@ -13,18 +15,18 @@ RUN apt-get update \
         unzip \
         gettext-base \
         socat \
-    && wget -qO- https://deb.nodesource.com/setup_8.x | bash \
+    && wget -qO- https://deb.nodesource.com/setup_10.x | bash \
     && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g yarn 
+RUN npm install -g yarn --force
 
 # install LL app
-ENV LL_TAG=v2.8.2
+ENV LL_TAG=v7.1.1
 RUN git clone https://github.com/LearningLocker/learninglocker.git /opt/learninglocker \
     && cd /opt/learninglocker \
     && git checkout $LL_TAG \
-    && yarn install \
+	&& npm_config_build_from_source=true yarn install --ignore-engines \
     && yarn build-all
 
 WORKDIR /opt/learninglocker
@@ -36,6 +38,7 @@ RUN cp -r storage storage.template
 # service api exposes port 8080
 # service ui exposes port 3000
 # see env.template
+
 EXPOSE 3000 8080
 
 COPY env.template .env.template

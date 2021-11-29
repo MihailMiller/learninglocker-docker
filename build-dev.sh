@@ -2,6 +2,6 @@
 set -e
 
 export DOCKER_TAG=dev
-docker build -t up2university/learninglocker2-app:$DOCKER_TAG app
-docker build -t up2university/learninglocker2-nginx:$DOCKER_TAG nginx
+docker build -t learninglocker-app:$DOCKER_TAG app
+docker build -t learninglocker-nginx:$DOCKER_TAG nginx
 
