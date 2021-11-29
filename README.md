@@ -1,6 +1,6 @@
 # Learning Locker (v7.1.1) in Docker
 
-This is a modified forked version of https://github.com/up2university/learninglocker2
+This is a modified forked version of https://github.com/up2university/learninglocker2 (for testing purposes only)
 
 ## Architecture
 
