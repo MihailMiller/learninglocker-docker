@@ -1,6 +1,6 @@
-# Learning Locker version 2 in Docker
+# Learning Locker (v7.1.1) in Docker
 
-It is a dockerized version of Learning Locker (LL) version 2 based on the installation guides at http://docs.learninglocker.net/guides-custom-installation/
+This is a modified forked version of https://github.com/up2university/learninglocker2
 
 ## Architecture
 
